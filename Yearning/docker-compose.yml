@@ -2,8 +2,7 @@ version: '3'
 
 services:
     yearning:
-        image: chaiyd/yearning:latest
-        # 如需固定版本，可使用 chaiyd/yearning:v3.1.4
+        image: chaiyd/yearning:${YEARNING_VERSION}
         container_name: yearning
         environment:
            MYSQL_USER: ${MYSQL_USER}
@@ -21,7 +20,7 @@ services:
         restart: always
 
     mysql:
-        image: mysql:8.4
+        image: mysql:${MYSQL_VERSION}
         environment:
            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
            MYSQL_DATABASE: ${MYSQL_DATABASE}

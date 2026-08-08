@@ -1,5 +1,5 @@
   redis:
-    image: redis:8.0-alpine
+    image: redis:${REDIS_VERSION}
     container_name: redis
     command: redis-server /etc/redis/redis.conf
     ports:

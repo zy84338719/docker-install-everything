@@ -1,7 +1,7 @@
 version: '3'
 services:
   jira-mysql:
-    image: mysql:8.4
+    image: mysql:${MYSQL_VERSION}
     container_name: jira-mysql
     command: --mysql-native-password=ON
     environment:
@@ -23,7 +23,8 @@ services:
 
   jira:
     # atlassian/jira-software 仅提供 latest 滚动 tag，无语义化版本
-    image: atlassian/jira-software
+    # 默认 JIRA_VERSION=latest；如需固定，在 .env 设置为 docker hub 上的具体 tag
+    image: atlassian/jira-software:${JIRA_VERSION}
     container_name: jira
     hostname: jira
     depends_on:

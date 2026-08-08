@@ -2,7 +2,7 @@ version: "3"
 services:
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.8.0
+    image: confluentinc/cp-zookeeper:${KAFKA_VERSION}
     container_name: zookeeper
     ports:
       - "2181:2181"
@@ -14,7 +14,7 @@ services:
         ipv4_address: ${ZK_IP}
 
   kafka:
-    image: confluentinc/cp-kafka:7.8.0
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     container_name: kafka
     privileged: true
     ports:
@@ -36,7 +36,9 @@ services:
 
   logstash:
     build:
-      ./logstash
+      context: ./logstash
+      args:
+        ELK_VERSION: ${ELK_VERSION}
     container_name: logstash
     privileged: true
     environment:
@@ -48,7 +50,7 @@ services:
         ipv4_address: ${LOGSTASH_IP}
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:9.5.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     container_name: elasticsearch
     privileged: true
     environment:
@@ -71,7 +73,7 @@ services:
         ipv4_address: ${ES_IP}
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:9.5.0
+    image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
     container_name: kibana
     environment:
       SERVER_HOST: 0.0.0.0
@@ -86,7 +88,9 @@ services:
 
   filebeat:
     build:
-      ./filebeat
+      context: ./filebeat
+      args:
+        ELK_VERSION: ${ELK_VERSION}
     container_name: filebeat
     command: filebeat -e -strict.perms=false
     user: root

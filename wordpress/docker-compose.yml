@@ -1,7 +1,7 @@
 version: '3'
 services:
   wordpress:
-    image: wordpress
+    image: wordpress:${WORDPRESS_VERSION}
     container_name: wordpress
     ports:
       - "80:80"
@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysql
   mysql:
-    image: mysql:8.4
+    image: mysql:${MYSQL_VERSION}
     container_name: ${HOST_MYSQL}
     command: --mysql-native-password=ON
     volumes:

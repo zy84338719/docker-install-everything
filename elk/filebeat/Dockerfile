@@ -1,4 +1,5 @@
-FROM docker.elastic.co/beats/filebeat:9.5.0
+ARG ELK_VERSION=9.5.0
+FROM docker.elastic.co/beats/filebeat:${ELK_VERSION}
 
 COPY filebeat.yml /usr/share/filebeat/filebeat.yml
 
