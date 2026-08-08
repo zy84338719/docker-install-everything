@@ -2,7 +2,7 @@ version: '3'
 services:
 
   redis-server-master:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-master
     ports:
       - ${PORT_SERVER_MASTER}:6379
@@ -20,7 +20,7 @@ services:
         ipv4_address: ${IP_SERVER_MASTER}
 
   redis-server-slave-1:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-slave-1
     ports:
       - ${PORT_SERVER_SLAVE_1}:6379
@@ -40,7 +40,7 @@ services:
         ipv4_address: ${IP_SERVER_SLAVE_1}
 
   redis-server-slave-2:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-slave-2
     ports:
       - ${PORT_SERVER_SLAVE_2}:6379
@@ -60,7 +60,7 @@ services:
         ipv4_address: ${IP_SERVER_SLAVE_2}
 
   redis-server-slave-3:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-slave-3
     ports:
       - ${PORT_SERVER_SLAVE_3}:6379
@@ -80,7 +80,7 @@ services:
         ipv4_address: ${IP_SERVER_SLAVE_3}
 
   redis-server-sentinel-1:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-sentinel-1
     ports:
       - ${PORT_SERVER_SENTINEL_1}:26379
@@ -99,7 +99,7 @@ services:
         ipv4_address: ${IP_SERVER_SENTINEL_1}
 
   redis-server-sentinel-2:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-sentinel-2
     ports:
       - ${PORT_SERVER_SENTINEL_2}:26379
@@ -118,7 +118,7 @@ services:
         ipv4_address: ${IP_SERVER_SENTINEL_2}
 
   redis-server-sentinel-3:
-    image: redis:6.2-alpine
+    image: redis:8.0-alpine
     container_name: redis-server-sentinel-3
     ports:
       - ${PORT_SERVER_SENTINEL_3}:26379

@@ -16,8 +16,9 @@ services:
     depends_on:
       - mysql
   mysql:
-    image: mysql:5.7
+    image: mysql:8.4
     container_name: ${HOST_MYSQL}
+    command: --mysql-native-password=ON
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./conf/my.cnf:/etc/my.cnf

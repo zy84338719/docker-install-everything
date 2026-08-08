@@ -1,7 +1,7 @@
 version: '3'
 services:
   jumpserver:
-    image: jumpserver/jms_all:latest
+    image: jumpserver/jms_all:v4.10.18
     container_name: jms-all
 #    restart: always
     ports:
@@ -30,10 +30,10 @@ services:
       - mysql
       - redis
   mysql:
-    image: 'mysql:5.7'
+    image: 'mysql:8.4'
     container_name: jms-mysql
 #    restart: always
-    command: --character-set-server=utf8 --collation-server=utf8_general_ci
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci --mysql-native-password=ON
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: '${MYSQL_DATABASE}'
@@ -50,7 +50,7 @@ services:
     volumes:
       - ${VOLUME_DIR}/data/mysql:/var/lib/mysql
   redis:
-    image: redis:6.0
+    image: redis:8.0
     container_name: jms-redis
 #    restart: always
     command: redis-server --requirepass ${REDIS_PASSWORD} --loglevel warning --maxmemory-policy allkeys-lru

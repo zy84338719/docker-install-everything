@@ -3,6 +3,7 @@ version: '3'
 services:
     yearning:
         image: chaiyd/yearning:latest
+        # 如需固定版本，可使用 chaiyd/yearning:v3.1.4
         container_name: yearning
         environment:
            MYSQL_USER: ${MYSQL_USER}
@@ -20,7 +21,7 @@ services:
         restart: always
 
     mysql:
-        image: mysql:5.7
+        image: mysql:8.4
         environment:
            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
            MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -29,5 +30,6 @@ services:
         command:
            - --character-set-server=utf8mb4
            - --collation-server=utf8mb4_general_ci
+           - --mysql-native-password=ON
         volumes:
            - ./data/mysql:/var/lib/mysql

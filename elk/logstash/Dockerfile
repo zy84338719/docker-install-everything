@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash:7.9.2
+FROM docker.elastic.co/logstash/logstash:9.5.0
 
 RUN rm -f /usr/share/logstash/pipeline/logstash.conf
 

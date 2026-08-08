@@ -1,6 +1,7 @@
 version: "3"
 services:
   beanstalkd:
+    # schickling/beanstalkd 镜像约 8 年未更新，仅 latest tag 可用；生产环境建议评估替代方案
     image: schickling/beanstalkd
     container_name: beanstalkd
     ports:

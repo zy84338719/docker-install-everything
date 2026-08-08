@@ -1,5 +1,7 @@
 # example
 
+> ℹ️ 说明：本目录采用的 `core / celery / koko / lion / magnus / web` 多镜像拆分架构，是 JumpServer v2/v3 的部署方式，镜像 tag 最高仅到 **v3.9.3**。JumpServer v4 已重构架构并改用 `-ce` 命名的镜像，不再兼容本 compose。**如需使用 v4，请改用本仓库的 `jumpserver-all-in-one` 目录**（基于 `jms_all` 单镜像，开箱即用）。
+
 ## Usage
 
 1. 添加配置。
