@@ -1,3 +1,6 @@
+version: '3'
+services:
+
   redis:
     image: redis:${REDIS_VERSION}
     container_name: redis
