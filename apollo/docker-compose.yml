@@ -1,7 +1,7 @@
 version: '3'
 services:
   apollo-configservice:
-    image: apolloconfig/apollo-configservice
+    image: apolloconfig/apollo-configservice:${APOLLO_VERSION}
     container_name: apollo-configservice
     ports:
       - '8080:8080'
@@ -18,7 +18,7 @@ services:
     depends_on:
       - apollo-db
   apollo-portal:
-    image: apolloconfig/apollo-portal
+    image: apolloconfig/apollo-portal:${APOLLO_VERSION}
     container_name: apollo-portal
     ports:
       - '8070:8070'
@@ -35,7 +35,7 @@ services:
     depends_on:
       - apollo-db
   apollo-adminservice:
-    image: apolloconfig/apollo-adminservice
+    image: apolloconfig/apollo-adminservice:${APOLLO_VERSION}
     container_name: apollo-adminservice
     ports:
       - '8090:8090'
@@ -51,8 +51,9 @@ services:
     depends_on:
       - apollo-db
   apollo-db:
-    image: 'mysql:5.7'
+    image: 'mysql:${MYSQL_VERSION}'
     container_name: apollo-db
+    command: --mysql-native-password=ON
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'

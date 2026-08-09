@@ -1,7 +1,7 @@
 version: '3'
 services:
   maxwell:
-    image: zendesk/maxwell
+    image: zendesk/maxwell:${MAXWELL_VERSION}
     container_name: maxwell
     command: bin/maxwell --config /etc/maxwell/config.properties
     volumes:
@@ -13,8 +13,9 @@ services:
       - maxwell-mysql
       - maxwell-redis
   maxwell-mysql:
-    image: 'mysql:5.7.23'
+    image: 'mysql:${MYSQL_VERSION}'
     container_name: maxwell-mysql
+    command: --binlog-format=ROW --server-id=1 --mysql-native-password=ON
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
@@ -28,6 +29,6 @@ services:
       - './data/mysql:/var/lib/mysql'
   maxwell-redis:
     container_name: maxwell-redis
-    image: 'redis:4.0.10'
+    image: 'redis:${REDIS_VERSION}'
     ports:
       - '6379:6379'

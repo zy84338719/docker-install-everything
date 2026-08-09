@@ -2,7 +2,7 @@ version: '3'
 
 services:
   yapi-web:
-    image: jayfong/yapi:latest
+    image: jayfong/yapi:${YAPI_VERSION}
     container_name: yapi-web
     ports:
       - ${YAPI_PORT}:3000
@@ -23,7 +23,8 @@ services:
     restart: unless-stopped
 
   yapi-mongo:
-    image: mongo:latest
+    # yapi 已长期停止维护，其内置 mongoose 版本对 mongo 7+ 兼容性较差，故固定在 mongo 6.0
+    image: mongo:${MONGO_VERSION}
     container_name: yapi-mongo
     volumes:
       - ./data/db:/data/db

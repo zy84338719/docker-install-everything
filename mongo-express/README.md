@@ -1,5 +1,7 @@
 # example
 
+> ⚠️ 注意：官方 `mongo-express` 镜像仓库已标注 DEPRECATED，后续可能不再更新。如需长期维护的 MongoDB Web 管理工具，建议关注其社区 fork 或其他替代方案。
+
 ## Usage
 
 ```bash

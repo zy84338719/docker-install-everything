@@ -1,7 +1,7 @@
 version: "3"
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:${PROMETHEUS_VERSION}
     container_name: prometheus
     user: root
 #    restart: always
@@ -19,7 +19,7 @@ services:
       - net-prometheus
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:${GRAFANA_VERSION}
     container_name: grafana
     user: root
 #    restart: always
@@ -34,7 +34,7 @@ services:
       - net-prometheus
 
   pushgateway:
-    image: prom/pushgateway
+    image: prom/pushgateway:${PUSHGATEWAY_VERSION}
     container_name: pushgateway
     user: root
 #    restart: always
@@ -44,7 +44,7 @@ services:
       - ./data/prometheus/pushgateway_data:/var/lib/pushgateway
 
   alertmanager:
-    image: prom/alertmanager
+    image: prom/alertmanager:${ALERTMANAGER_VERSION}
     hostname: alertmanager
     container_name: alertmanager
     user: root

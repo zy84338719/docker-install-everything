@@ -2,16 +2,19 @@ version: "3"
 services:
 
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: confluentinc/cp-zookeeper:${KAFKA_VERSION}
     container_name: zookeeper
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     networks:
       net_elk:
         ipv4_address: ${ZK_IP}
 
   kafka:
-    image: wurstmeister/kafka
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     container_name: kafka
     privileged: true
     ports:
@@ -19,10 +22,11 @@ services:
     depends_on:
       - zookeeper
     environment:
-      KFAKA_BROKER_ID: 1
+      KAFKA_BROKER_ID: 1
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.197.121:9092 #宿主机IP
       KAFKA_LISTENERS: PLAINTEXT://:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/kafka:/kafka
@@ -32,7 +36,9 @@ services:
 
   logstash:
     build:
-      ./logstash
+      context: ./logstash
+      args:
+        ELK_VERSION: ${ELK_VERSION}
     container_name: logstash
     privileged: true
     environment:
@@ -44,11 +50,12 @@ services:
         ipv4_address: ${LOGSTASH_IP}
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     container_name: elasticsearch
     privileged: true
     environment:
       - "discovery.type=single-node"
+      - "xpack.security.enabled=false"
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - "TAKE_FILE_OWNERSHIP=true"
     ulimits:
@@ -66,7 +73,7 @@ services:
         ipv4_address: ${ES_IP}
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.2
+    image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
     container_name: kibana
     environment:
       SERVER_HOST: 0.0.0.0
@@ -81,7 +88,9 @@ services:
 
   filebeat:
     build:
-      ./filebeat
+      context: ./filebeat
+      args:
+        ELK_VERSION: ${ELK_VERSION}
     container_name: filebeat
     command: filebeat -e -strict.perms=false
     user: root

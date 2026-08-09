@@ -1,7 +1,8 @@
 version: '3'
 services:
   excalidraw:
-    image: 'excalidraw/excalidraw:latest'
+    # excalidraw 官方镜像仅提供 latest / commit-sha tag，无语义化版本
+    image: 'excalidraw/excalidraw:${EXCALIDRAW_VERSION}'
     container_name: excalidraw
 #    restart: always
     ports:

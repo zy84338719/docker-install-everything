@@ -1,7 +1,8 @@
 version: "3"
 services:
   beanstalkd:
-    image: schickling/beanstalkd
+    # schickling/beanstalkd 镜像约 8 年未更新，仅 latest tag 可用；生产环境建议评估替代方案
+    image: schickling/beanstalkd:${BEANSTALKD_VERSION}
     container_name: beanstalkd
     ports:
       - 11300:11300
@@ -10,7 +11,7 @@ services:
     command: "-p 11300 -b /data"
 
   beanstalkd-console:
-    image: schickling/beanstalkd-console
+    image: schickling/beanstalkd-console:${BEANSTALKD_CONSOLE_VERSION}
     container_name: beanstalkd-console
     ports:
       - 2080:2080
