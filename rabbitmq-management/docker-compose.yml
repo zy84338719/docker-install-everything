@@ -1,0 +1,15 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:${RABBITMQ_VERSION}-management
+    container_name: rabbitmq-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - './data/rabbitmq:/var/lib/rabbitmq'
+      - './conf/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf'
+      - './log/rabbitmq:/var/log/rabbitmq'

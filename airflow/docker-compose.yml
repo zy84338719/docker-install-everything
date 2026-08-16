@@ -1,0 +1,30 @@
+version: '3'
+services:
+  airflow-webserver:
+    image: apache/airflow:${AIRFLOW_VERSION}
+    container_name: airflow-webserver
+    ports:
+      - '8080:8080'
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - _AIRFLOW_DB_MIGRATE=true
+      - _AIRFLOW_WWW_USER_CREATE=true
+      - _AIRFLOW_WWW_USER_USERNAME=${AIRFLOW_WWW_USER_USERNAME}
+      - _AIRFLOW_WWW_USER_PASSWORD=${AIRFLOW_WWW_USER_PASSWORD}
+    volumes:
+      - './dags:/opt/airflow/dags'
+      - './logs:/opt/airflow/logs'
+      - './plugins:/opt/airflow/plugins'
+    command: webserver
+  airflow-scheduler:
+    image: apache/airflow:${AIRFLOW_VERSION}
+    container_name: airflow-scheduler
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+    volumes:
+      - './dags:/opt/airflow/dags'
+      - './logs:/opt/airflow/logs'
+      - './plugins:/opt/airflow/plugins'
+    command: scheduler

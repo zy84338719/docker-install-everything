@@ -1,0 +1,16 @@
+version: '3'
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:${CLICKHOUSE_VERSION}
+    container_name: clickhouse
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    environment:
+      - CLICKHOUSE_DB=${CLICKHOUSE_DB}
+      - CLICKHOUSE_USER=${CLICKHOUSE_USER}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
+    volumes:
+      - './data/clickhouse:/var/lib/clickhouse'
+      - './conf/clickhouse.xml:/etc/clickhouse-server/config.d/custom.xml'
+      - './log/clickhouse:/var/log/clickhouse-server'

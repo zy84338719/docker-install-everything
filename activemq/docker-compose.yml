@@ -1,0 +1,17 @@
+version: '3'
+services:
+  activemq:
+    image: webcenter/activemq:${ACTIVEMQ_VERSION}
+    container_name: activemq
+    ports:
+      - '8161:8161'
+      - '61616:61616'
+      - '5672:5672'
+      - '1883:1883'
+      - '61613:61613'
+    environment:
+      - ACTIVEMQ_ADMIN_LOGIN=${ACTIVEMQ_ADMIN_LOGIN}
+      - ACTIVEMQ_ADMIN_PASSWORD=${ACTIVEMQ_ADMIN_PASSWORD}
+    volumes:
+      - './data/activemq:/data/activemq'
+      - './log/activemq:/var/log/activemq'

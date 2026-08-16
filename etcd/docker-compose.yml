@@ -1,0 +1,13 @@
+version: '3'
+services:
+  etcd:
+    image: bitnami/etcd:${ETCD_VERSION}
+    container_name: etcd
+    ports:
+      - '2379:2379'
+      - '2380:2380'
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379
+    volumes:
+      - './data/etcd:/bitnami/etcd'

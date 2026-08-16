@@ -1,0 +1,25 @@
+version: '3'
+services:
+  cat:
+    image: leason/cat:${CAT_VERSION}
+    container_name: cat
+    ports:
+      - '8080:8080'
+      - '2280:2280'
+    environment:
+      - MYSQL_HOST=cat-db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASS=${MYSQL_PASSWORD}
+    volumes:
+      - './data/cat:/data'
+    depends_on:
+      - cat-db
+  cat-db:
+    image: mysql:${MYSQL_VERSION}
+    container_name: cat-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=cat
+    volumes:
+      - './data/mysql:/var/lib/mysql'

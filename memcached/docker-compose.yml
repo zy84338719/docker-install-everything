@@ -1,0 +1,8 @@
+version: '3'
+services:
+  memcached:
+    image: memcached:${MEMCACHED_VERSION}
+    container_name: memcached
+    ports:
+      - '11211:11211'
+    command: memcached -m ${MEMCACHED_MEMORY}

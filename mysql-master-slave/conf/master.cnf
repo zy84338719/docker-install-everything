@@ -1,0 +1,6 @@
+[mysqld]
+server-id=1
+log-bin=mysql-bin
+binlog-do-db=test
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci

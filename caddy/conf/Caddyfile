@@ -1,0 +1,29 @@
+# Caddy 配置文件示例
+# 更多配置请参考: https://caddyserver.com/docs/caddyfile
+
+# 本地开发配置
+:80 {
+    # 启用日志
+    log {
+        output file /var/log/caddy/access.log
+    }
+
+    # 静态文件服务示例
+    # root * /srv
+    # file_server
+
+    # 反向代理示例
+    # reverse_proxy localhost:8080
+
+    # PHP 示例
+    # php_fastcgi localhost:9000
+
+    respond "Hello, World!"
+}
+
+# HTTPS 站点示例 (需要域名)
+# example.com {
+#     root * /srv
+#     file_server
+#     tls admin@example.com
+# }

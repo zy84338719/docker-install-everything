@@ -10,7 +10,7 @@ services:
     networks:
       - apollo
     environment:
-      - TZ='Asia/Shanghai'
+      - TZ=Asia/Shanghai
       - >-
         SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigDB?characterEncoding=utf8
       - 'SPRING_DATASOURCE_USERNAME=${MYSQL_USER}'

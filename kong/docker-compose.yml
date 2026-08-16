@@ -1,0 +1,56 @@
+version: '3'
+services:
+
+  kong-database:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: kong-database
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  kong-migration:
+    image: kong:${KONG_VERSION}
+    container_name: kong-migration
+    depends_on:
+      - kong-database
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: ${POSTGRES_USER}
+      KONG_PG_PASSWORD: ${POSTGRES_PASSWORD}
+      KONG_PG_DATABASE: ${POSTGRES_DB}
+    command: kong migrations bootstrap
+    restart: on-failure
+
+  kong:
+    image: kong:${KONG_VERSION}
+    container_name: kong
+    depends_on:
+      - kong-database
+      - kong-migration
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: ${POSTGRES_USER}
+      KONG_PG_PASSWORD: ${POSTGRES_PASSWORD}
+      KONG_PG_DATABASE: ${POSTGRES_DB}
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+    ports:
+      - "${KONG_PROXY_PORT}:8000"
+      - "${KONG_PROXY_SSL_PORT}:8443"
+      - "${KONG_ADMIN_PORT}:8001"
+      - "${KONG_ADMIN_SSL_PORT}:8444"
+    restart: unless-stopped

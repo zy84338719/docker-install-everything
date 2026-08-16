@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  kuboard:
+    image: eipwork/kuboard:${KUBOARD_VERSION}
+    container_name: kuboard
+    ports:
+      - '80:80'
+      - '10080:10080'
+    environment:
+      - KUBOARD_ENDPOINT=http://127.0.0.1:10080
+      - KUBOARD_AGENT_SERVER_TCP_PORT=10080
+    volumes:
+      - './data/kuboard:/data'

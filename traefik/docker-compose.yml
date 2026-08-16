@@ -1,0 +1,18 @@
+version: '3'
+services:
+  traefik:
+    image: traefik:${TRAEFIK_VERSION}
+    container_name: traefik
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './conf/traefik.yml:/etc/traefik/traefik.yml'
+      - './log/traefik:/var/log'

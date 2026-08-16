@@ -1,0 +1,40 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:${NGINX_VERSION}
+    container_name: dnmp-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf/nginx:/etc/nginx/conf.d
+      - ./data/nginx:/usr/share/nginx/html
+      - ./log/nginx:/var/log/nginx
+    depends_on:
+      - php
+    restart: always
+
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: dnmp-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./conf/mysql:/etc/mysql/conf.d
+      - ./data/mysql:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+    restart: always
+
+  php:
+    image: php:${PHP_VERSION}-fpm
+    container_name: dnmp-php
+    volumes:
+      - ./conf/php:/usr/local/etc/php/conf.d
+      - ./data/nginx:/usr/share/nginx/html
+      - ./log/php:/var/log/php
+    restart: always

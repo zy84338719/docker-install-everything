@@ -1,0 +1,11 @@
+version: '3'
+services:
+  golang:
+    image: golang:${GOLANG_VERSION}
+    container_name: golang
+    ports:
+      - '8080:8080'
+    volumes:
+      - './conf:/go/src/app'
+    working_dir: /go/src/app
+    command: tail -f /dev/null

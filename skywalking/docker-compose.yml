@@ -1,0 +1,23 @@
+version: '3'
+services:
+  oap:
+    image: apache/skywalking-oap-server:${SKYWALKING_VERSION}
+    container_name: skywalking-oap
+    ports:
+      - '11800:11800'
+      - '12800:12800'
+    environment:
+      - SW_STORAGE=h2
+      - SW_CORE_REST_HOST=0.0.0.0
+      - SW_CORE_GRPC_HOST=0.0.0.0
+    volumes:
+      - './data/oap:/skywalking/data'
+  ui:
+    image: apache/skywalking-ui:${SKYWALKING_VERSION}
+    container_name: skywalking-ui
+    ports:
+      - '8080:8080'
+    environment:
+      - SW_OAP_ADDRESS=http://oap:12800
+    depends_on:
+      - oap

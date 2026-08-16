@@ -1,0 +1,19 @@
+<clickhouse>
+    <!-- 日志设置 / Logging settings -->
+    <logger>
+        <level>information</level>
+        <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+        <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
+        <size>1000M</size>
+        <count>10</count>
+    </logger>
+
+    <!-- HTTP 端口 / HTTP port -->
+    <http_port>8123</http_port>
+
+    <!-- TCP 端口 / TCP port -->
+    <tcp_port>9000</tcp_port>
+
+    <!-- 监听地址 / Listen host -->
+    <listen_host>::</listen_host>
+</clickhouse>

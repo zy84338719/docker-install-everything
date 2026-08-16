@@ -1,0 +1,28 @@
+version: '3'
+services:
+  pg-master:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: pg-master
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_REPLICATION_USER=${REPLICATION_USER}
+      - POSTGRES_REPLICATION_PASSWORD=${REPLICATION_PASSWORD}
+    volumes:
+      - './data/master:/var/lib/postgresql/data'
+      - './conf/master.conf:/etc/postgresql/postgresql.conf'
+      - './conf/pg_hba.conf:/etc/postgresql/pg_hba.conf'
+  pg-slave:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: pg-slave
+    ports:
+      - '5433:5432'
+    environment:
+      - PGUSER=${REPLICATION_USER}
+      - PGPASSWORD=${REPLICATION_PASSWORD}
+      - PGHOST=pg-master
+    volumes:
+      - './data/slave:/var/lib/postgresql/data'
+    depends_on:
+      - pg-master

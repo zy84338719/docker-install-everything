@@ -1,0 +1,15 @@
+version: '3'
+services:
+
+  nodejs:
+    image: node:${NODE_VERSION}
+    container_name: nodejs
+    working_dir: /app
+    command: tail -f /dev/null
+    ports:
+      - "${APP_PORT}:3000"
+    volumes:
+      - ./data:/app
+    environment:
+      TZ: Asia/Shanghai
+    restart: unless-stopped
