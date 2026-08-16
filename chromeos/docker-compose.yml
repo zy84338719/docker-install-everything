@@ -1,0 +1,27 @@
+version: '3'
+services:
+  chromeos:
+    image: dockurr/chromeos
+    container_name: chromeos
+    ports:
+      - '8006:8006'
+      - '5900:5900/tcp'
+      - '5900:5900/udp'
+    environment:
+      - VERSION=${VERSION}
+      - GPU=${GPU}
+      - DISK_SIZE=${DISK_SIZE}
+      - RAM_SIZE=${RAM_SIZE}
+      - CPU_CORES=${CPU_CORES}
+      - AUDIO=${AUDIO}
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    device_cgroup_rules:
+      - 'c 226:* rwm'
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - './data:/storage'
+      - '/dev/dri:/dev/dri:rw'
+    stop_grace_period: 2m

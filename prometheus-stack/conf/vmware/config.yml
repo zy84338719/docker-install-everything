@@ -1,0 +1,11 @@
+default:
+  vsphere_host: ${VSPHERE_HOST}
+  vsphere_user: ${VSPHERE_USER}
+  vsphere_password: ${VSPHERE_PASSWORD}
+  ignore_ssl: True
+  collect_only:
+    vms: True
+    vmguests: True
+    datastores: True
+    hosts: True
+    snapshots: True

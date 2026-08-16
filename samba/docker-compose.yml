@@ -1,0 +1,12 @@
+version: '3'
+services:
+  samba:
+    image: dockurr/samba
+    container_name: samba
+    ports:
+      - '445:445'
+    environment:
+      - USER=${SAMBA_USER}
+      - PASS=${SAMBA_PASSWORD}
+    volumes:
+      - './data:/storage'

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  piefed:
+    image: dockurr/piefed
+    container_name: piefed
+    ports:
+      - '8080:8080'
+    volumes:
+      - './data:/data'

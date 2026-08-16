@@ -1,0 +1,119 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION}
+    container_name: prometheus-stack
+    user: root
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./conf/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./conf/prometheus/rules:/etc/prometheus/rules
+      - ./data/prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--storage.tsdb.retention.time=720h'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+    networks:
+      - monitor
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_VERSION}
+    container_name: grafana-stack
+    user: root
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GF_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD}
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - monitor
+
+  alertmanager:
+    image: prom/alertmanager:${ALERTMANAGER_VERSION}
+    container_name: alertmanager-stack
+    user: root
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./conf/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - ./data/alertmanager:/var/lib/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/var/lib/alertmanager'
+    networks:
+      - monitor
+
+  prometheusalert:
+    image: feiyu563/prometheus-alert:${PROMETHEUS_ALERT_VERSION}
+    container_name: prometheusalert
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./conf/prometheusalert/app.conf:/app/conf/app.conf:ro
+      - ./data/prometheusalert:/app/db
+    depends_on:
+      - alertmanager
+    networks:
+      - monitor
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:${BLACKBOX_VERSION}
+    container_name: blackbox-exporter
+    user: root
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./conf/blackbox/blackbox.yml:/config/blackbox.yml:ro
+    command:
+      - '--config.file=/config/blackbox.yml'
+    networks:
+      - monitor
+
+  vmware-exporter:
+    image: pryorda/vmware_exporter:${VMWARE_EXPORTER_VERSION}
+    container_name: vmware-exporter
+    ports:
+      - "9272:9272"
+    volumes:
+      - ./conf/vmware/config.yml:/etc/config.yml:ro
+    command:
+      - '-c'
+      - '/etc/config.yml'
+    environment:
+      - VSPHERE_HOST=${VSPHERE_HOST}
+      - VSPHERE_USER=${VSPHERE_USER}
+      - VSPHERE_PASSWORD=${VSPHERE_PASSWORD}
+      - VSPHERE_IGNORE_SSL=True
+    networks:
+      - monitor
+
+  node-exporter:
+    image: prom/node-exporter:${NODE_EXPORTER_VERSION}
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitor
+
+networks:
+  monitor:
+    name: monitor

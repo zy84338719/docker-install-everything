@@ -1,0 +1,16 @@
+version: '3'
+services:
+  proxmox:
+    image: dockurr/proxmox
+    container_name: proxmox
+    ports:
+      - '8006:8006'
+    environment:
+      - PASSWORD=${PASSWORD}
+    privileged: true
+    devices:
+      - /dev/kvm
+    volumes:
+      - './data:/var/lib/vz'
+      - './config:/var/lib/pve-cluster'
+    stop_grace_period: 2m

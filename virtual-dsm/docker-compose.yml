@@ -1,0 +1,19 @@
+version: '3'
+services:
+  dsm:
+    image: vdsm/virtual-dsm
+    container_name: virtual-dsm
+    ports:
+      - '5000:5000'
+    environment:
+      - DISK_SIZE=${DISK_SIZE}
+      - RAM_SIZE=${RAM_SIZE}
+      - CPU_CORES=${CPU_CORES}
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - './data:/storage'
+    stop_grace_period: 2m

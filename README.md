@@ -40,6 +40,10 @@ docker-compose up -d redis
 
     简要说明: [Caddy](https://caddyserver.com/) 是一款自动启用 HTTPS 的现代 Web 服务器，配置简洁。
 
+- casa
+
+    简要说明: [CasaOS](https://casaos.io/) 是一款家庭云系统，简单易用的个人云和家庭服务器管理平台。
+
 - cat
 
     简要说明: [CAT](https://github.com/dianping/cat) 是美团开源的实时应用监控平台（Central Application Tracking）。
@@ -48,6 +52,14 @@ docker-compose up -d redis
 
     简要说明: [ClickHouse](https://clickhouse.com/) 是一款高性能的列式分析型数据库，适用于 OLAP 场景。
 
+- chromeos
+
+    简要说明: 在 Docker 中运行 [ChromeOS Flex](https://github.com/dockur/chromeos)，支持 GPU 加速和 Web Viewer。
+
+- chrony
+
+    简要说明: [chrony](https://chrony-project.org/) 是一款高精度的 NTP 时间同步服务器。
+
 - consul
 
     简要说明: [HashiCorp Consul](https://www.consul.io/) 是一款服务网格和发现工具，提供服务注册、健康检查和 KV 存储。
@@ -55,6 +67,10 @@ docker-compose up -d redis
 - dnmp
 
     简要说明: Docker + Nginx + MySQL + PHP 集成开发环境，快速搭建 LNMP 栈。
+
+- dnsmasq
+
+    简要说明: [dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html) 是一款轻量级的 DNS 和 DHCP 服务器。
 
 - gogs
 
@@ -92,6 +108,10 @@ docker-compose up -d redis
 
     简要说明: [Grafana Loki](https://grafana.com/oss/loki/) 是一款开源的日志聚合系统，与 Grafana 配合使用。
 
+- macos
+
+    简要说明: 在 Docker 中运行 [macOS](https://github.com/dockur/macos) 虚拟机，支持 Web Viewer 和 VNC。
+
 - memcached
 
     简要说明: [Memcached](https://memcached.org/) 是一款高性能的分布式内存对象缓存系统。
@@ -111,6 +131,10 @@ docker-compose up -d redis
 - mysql-master-slave
 
     简要说明: MySQL 主从复制架构，实现读写分离和数据备份。
+
+- munin
+
+    简要说明: [Munin](https://munin-monitoring.org/) 是一款系统资源监控工具，通过图表展示 CPU、内存、磁盘等指标。
 
 - nacos
 
@@ -200,6 +224,10 @@ docker-compose up -d redis
 
     简要说明: [phpmyadmin](https://github.com/phpmyadmin/phpmyadmin) 是一款基于 Web 的 MySQL 数据库管理工具。
 
+- piefed
+
+    简要说明: [PieFed](https://join.piefed.social/) 是一款联邦式链接聚合平台，类似 Reddit，支持 ActivityPub。
+
 - portainer
 
     简要说明: [Portainer](https://www.portainer.io/) 是一款轻量级的 Docker 可视化管理工具。
@@ -211,6 +239,14 @@ docker-compose up -d redis
 - postgresql-replication
 
     简要说明: PostgreSQL 主从复制架构，实现高可用和读写分离。
+
+- prometheus-stack
+
+    简要说明: 完整的 [Prometheus](https://github.com/robotneo/prometheus-everything) 监控栈，包含 Prometheus、Grafana、Alertmanager、PrometheusAlert、Blackbox Exporter、VMware Exporter、Node Exporter。
+
+- proxmox
+
+    简要说明: 在 Docker 中运行 [Proxmox VE](https://github.com/dockur/proxmox) 虚拟化平台，支持 KVM。
 
 - rabbitmq
 
@@ -252,6 +288,10 @@ docker-compose up -d redis
 
     简要说明: 快速搭建 [redis](https://github.com/redis/redis) 集群服务，1主多从多哨兵。
 
+- samba
+
+    简要说明: [Samba](https://www.samba.org/) 是一款 SMB/CIFS 文件共享服务器，支持 Windows/macOS/Linux 访问。
+
 - sentry
 
     简要说明: [Sentry](https://sentry.io/) 是一款开源的实时错误追踪和监控平台。
@@ -268,6 +308,18 @@ docker-compose up -d redis
 
     简要说明: 自建开源的wiki/文档管理系统 [wiki.js](https://js.wiki/)。
 
+- windows
+
+    简要说明: 在 Docker 中运行 [Windows](https://github.com/dockur/windows) 虚拟机，支持 KVM 加速、Web Viewer 和远程桌面。
+
+- windows-arm
+
+    简要说明: 在 Docker 中运行 [Windows ARM](https://github.com/dockur/windows-arm) 版虚拟机。
+
+- virtual-dsm
+
+    简要说明: 在 Docker 中运行 [Synology DSM](https://github.com/vdsm/virtual-dsm) 虚拟机，体验群晖系统。
+
 - wordpress
 
     简要说明: [wordpress](https://github.com/WordPress/WordPress)，最流行的免费建站系统。
@@ -279,6 +331,10 @@ docker-compose up -d redis
 - Yearning
 
 	简要说明: [Yearning](https://github.com/cookieY/Yearning)，基于 Go 的开箱即用的MYSQL SQL审核工具。
+
+- zima
+
+    简要说明: 在 Docker 中运行 [ZimaOS](https://github.com/dockur/zima)，个人云和家庭服务器系统。
 
 
 ## 欢迎加入

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  macos:
+    image: dockurr/macos
+    container_name: macos
+    ports:
+      - '8006:8006'
+      - '5900:5900/tcp'
+      - '5900:5900/udp'
+    environment:
+      - VERSION=${VERSION}
+      - DISK_SIZE=${DISK_SIZE}
+      - RAM_SIZE=${RAM_SIZE}
+      - CPU_CORES=${CPU_CORES}
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - './data:/storage'
+      - './shared:/shared'
+    stop_grace_period: 2m

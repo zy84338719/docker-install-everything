@@ -1,0 +1,9 @@
+version: '3'
+services:
+  chrony:
+    image: dockurr/chrony
+    container_name: chrony
+    ports:
+      - '123:123/udp'
+    cap_add:
+      - SYS_TIME
